@@ -62,6 +62,8 @@ export default function Weather() {
             <img src={icon} alt="weather icon" />
             <h2 className="description">{description}</h2>
           </div>
+          <span className="raha">Open-source code by <a href="https://github.com/Raha-P/Weather-app-react">Raha Pedram</a></span>
+
 
         </div>
       </p>

@@ -57,3 +57,14 @@ html {
   font-size: 40px;
   color: white;
 }
+
+.raha {
+  margin: 40px 10px;
+}
+.raha a {
+  color: white;
+  text-decoration: none;
+}
+.raha a:hover {
+  opacity: 50%;
+}
