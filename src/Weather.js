@@ -1,14 +1,11 @@
 import React, { useState } from "react";
 import axios from "axios";
+import FriendlyDate from "./FriendlyDate";
+
 
 export default function Weather() {
-  let [city, setCity] = useState("Tehran");
-  let [temperature, setTemperature] = useState("");
-  let [description, setDescription] = useState(" ");
-  let [humidity, setHumidity] = useState(" ");
-  let [wind, setWind] = useState(" ");
-  let [icon, setIcon] = useState(" ");
-  let [cityName, setCityName] = useState("");
+  let [city, setCity] = useState(" ");
+  let [weatherItems, setWeatherItems] = useState(" ");
 
   function handleSubmit(event) {
     event.preventDefault();
@@ -23,21 +20,15 @@ export default function Weather() {
 
   function showTemp(response) {
     console.log(response);
-    let cityname = response.data.name;
-    let temp = response.data.main.temp;
-    let desc = response.data.weather[0].description;
-    let humidity = response.data.main.humidity;
-    let wind = response.data.wind.speed;
-    let icon = `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`;
-
-
-    setTemperature(Math.round(temp));
-    setDescription(desc);
-    setHumidity(humidity);
-    setWind(wind);
-    setIcon(icon);
-    setCityName(cityname);
-  }
+    setWeatherItems({
+    cityName: response.data.name,
+    temperature: Math.round(response.data.main.temp),
+    description: response.data.weather[0].description,
+    date: new Date(response.data.dt * 1000),
+    humidity: response.data.main.humidity,
+    wind: response.data.wind.speed,
+    icon: `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`,
+})};
 
   return (
     <div className="weather">
@@ -48,19 +39,22 @@ export default function Weather() {
 
       <p>
         <div className="row">
-          <div className="col-md-6 pe-0">
-            <h1 className="cityname">{cityName}</h1>
-            <p className="humidityandwind">
-              humidity: {humidity} %
-              <br />
-              wind: {wind} km/h
+          <div className="col-md-6 pe-4 ps-0">
+            <h1 className="cityname">{weatherItems.cityName}</h1>
+            <p className="time">
+              <FriendlyDate date={weatherItems.date} />
             </p>
-            <h3 className="temperature">{temperature}°C</h3>
+            <p className="humidityandwind">
+              Humidity: {weatherItems.humidity} %
+              <br />
+              Wind: {weatherItems.wind} km/h
+            </p>
+            <h3 className="temperature">{weatherItems.temperature}°C</h3>
           </div>
 
-          <div className="col-md-6 ps-0">
-            <img src={icon} alt="weather icon" />
-            <h2 className="description">{description}</h2>
+          <div className="col-md-6 ps-4 pe-0">
+            <img src={weatherItems.icon} alt="weather icon" />
+            <h2 className="text-capitalize description">{weatherItems.description}</h2>
           </div>
           <span className="raha">Open-source code by <a href="https://github.com/Raha-P/Weather-app-react">Raha Pedram</a></span>
 
@@ -68,5 +62,5 @@ export default function Weather() {
         </div>
       </p>
     </div>
-  ); 
-}
+  );
+  }
