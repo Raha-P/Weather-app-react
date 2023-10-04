@@ -42,8 +42,9 @@ html {
   
 }
 
-.weather img {
-  width: 150px;
+.weather canvas {
+  margin-top: 70px;
+  width: 80px;
 }
 
 .description {

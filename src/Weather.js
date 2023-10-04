@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import FriendlyDate from "./FriendlyDate";
 import { Audio } from 'react-loader-spinner';
+import WeatherIcon from "./WeatherIcon";
 
 
 export default function Weather(props) {
@@ -32,7 +33,7 @@ export default function Weather(props) {
     date: new Date(response.data.dt * 1000),
     humidity: response.data.main.humidity,
     wind: response.data.wind.speed,
-    icon: `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`,
+    icon: response.data.weather[0].icon,
 })};
 
 if (weatherItems.ready) {
@@ -59,7 +60,7 @@ if (weatherItems.ready) {
           </div>
 
           <div className="col-md-6 ps-4 pe-0">
-            <img src={weatherItems.icon} alt="weather icon" />
+            <WeatherIcon code={weatherItems.icon} />
             <h2 className="text-capitalize description">{weatherItems.description}</h2>
           </div>
           <span className="raha">Open-source code by <a href="https://github.com/Raha-P/Weather-app-react">Raha Pedram</a></span>
