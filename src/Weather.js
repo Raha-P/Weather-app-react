@@ -1,18 +1,22 @@
 import React, { useState } from "react";
 import axios from "axios";
 import FriendlyDate from "./FriendlyDate";
+import { Audio } from 'react-loader-spinner';
 
 
-export default function Weather() {
-  let [city, setCity] = useState(" ");
-  let [weatherItems, setWeatherItems] = useState(" ");
+export default function Weather(props) {
+  let [city, setCity] = useState(props.defaultcity);
+  let [weatherItems, setWeatherItems] = useState({ ready: false });
 
   function handleSubmit(event) {
     event.preventDefault();
+    search();
+  }
+
+  function search(){
     let apiKey = "3dce9b1c66837262a25b3f448d354a76";
     let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
-    axios.get(apiUrl).then(showTemp);
-  }
+    axios.get(apiUrl).then(showTemp);}
 
   function update(event) {
     setCity(event.target.value);
@@ -21,6 +25,7 @@ export default function Weather() {
   function showTemp(response) {
     console.log(response);
     setWeatherItems({
+    ready:true,
     cityName: response.data.name,
     temperature: Math.round(response.data.main.temp),
     description: response.data.weather[0].description,
@@ -30,6 +35,7 @@ export default function Weather() {
     icon: `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`,
 })};
 
+if (weatherItems.ready) {
   return (
     <div className="weather">
       <form onSubmit={handleSubmit}>
@@ -62,5 +68,24 @@ export default function Weather() {
         </div>
       </p>
     </div>
-  );
+  );}
+  else {
+    search();
+      return (
+        <div className="loader">
+        <Audio
+          height="80"
+          width="80"
+          radius="9"
+          color="white"
+          ariaLabel="loading"
+          wrapperStyle
+          wrapperClass
+        />    
+        </div>
+
+
+  );}
+
   }
+  

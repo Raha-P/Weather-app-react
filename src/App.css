@@ -73,6 +73,12 @@ html {
   opacity: 50%;
 }
 
+.loader {
+  display: flex;
+  justify-content: center;
+  margin-top: 240px;
+}
+
 @media (Max-width: 780px) {
   .weather {
     margin: 20px;
