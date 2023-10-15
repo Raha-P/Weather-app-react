@@ -3,6 +3,7 @@ import axios from "axios";
 import FriendlyDate from "./FriendlyDate";
 import { Audio } from 'react-loader-spinner';
 import WeatherIcon from "./WeatherIcon";
+import DisplayTemperature from "./DisplayTemperature";
 
 
 export default function Weather(props) {
@@ -38,6 +39,7 @@ export default function Weather(props) {
 
 if (weatherItems.ready) {
   return (
+    <div>
     <div className="weather">
       <form onSubmit={handleSubmit}>
         <input className="search " type="search" placeholder="Enter a city" onChange={update} />
@@ -45,29 +47,29 @@ if (weatherItems.ready) {
       </form>
 
       <p>
-        <div className="row">
-          <div className="col-md-6 pe-4 ps-0">
+        <div className="row firstcol">
+          <div className="col-md-6">
             <h1 className="cityname">{weatherItems.cityName}</h1>
-            <p className="time">
+            <p className="humidityandwindandtime">
               <FriendlyDate date={weatherItems.date} />
-            </p>
-            <p className="humidityandwind">
               Humidity: {weatherItems.humidity} %
               <br />
               Wind: {weatherItems.wind} km/h
             </p>
-            <h3 className="temperature">{weatherItems.temperature}°C</h3>
+            <DisplayTemperature celsius={weatherItems.temperature}/>
+      
           </div>
 
-          <div className="col-md-6 ps-4 pe-0">
+          <div className="col-md-6 secondcol">
             <WeatherIcon code={weatherItems.icon} />
             <h2 className="text-capitalize description">{weatherItems.description}</h2>
           </div>
-          <span className="raha">Open-source code by <a href="https://github.com/Raha-P/Weather-app-react">Raha Pedram</a></span>
-
 
         </div>
       </p>
+
+    </div> 
+    <span className="raha">Open-source code by <a href="https://github.com/Raha-P/Weather-app-react">Raha Pedram</a></span>
     </div>
   );}
   else {
