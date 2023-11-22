@@ -62,15 +62,16 @@ if (weatherItems.ready) {
           </div>
 
           <div className="col-md-6 secondcol">
-            <WeatherIcon code={weatherItems.icon} />
+            <WeatherIcon code={weatherItems.icon} size={70}/>
             <h2 className="text-capitalize description">{weatherItems.description}</h2>
           </div>
 
         </div>
       </p>
     </div> 
+    <div className="WeatherForecast">
     <WeatherForecast coordinate={weatherItems.coordinate}/>
-    <br />
+    </div>
     <span className="raha">Open-source code by <a href="https://github.com/Raha-P/Weather-app-react">Raha Pedram</a></span>
     </div>
   );}
