@@ -1,7 +1,6 @@
 import React from "react";
 
 export default function FriendlyDate(props) {
-    console.log(props.date);
     let weekDays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
     let day = weekDays[props.date.getDay()];
     let hours = props.date.getHours();

@@ -4,6 +4,7 @@ import FriendlyDate from "./FriendlyDate";
 import { Audio } from 'react-loader-spinner';
 import WeatherIcon from "./WeatherIcon";
 import DisplayTemperature from "./DisplayTemperature";
+import WeatherForecast from "./WeatherForecast";
 
 
 export default function Weather(props) {
@@ -25,9 +26,9 @@ export default function Weather(props) {
   }
 
   function showTemp(response) {
-    console.log(response);
     setWeatherItems({
     ready:true,
+    coordinate: response.data.coord,
     cityName: response.data.name,
     temperature: Math.round(response.data.main.temp),
     description: response.data.weather[0].description,
@@ -67,8 +68,9 @@ if (weatherItems.ready) {
 
         </div>
       </p>
-
     </div> 
+    <WeatherForecast coordinate={weatherItems.coordinate}/>
+    <br />
     <span className="raha">Open-source code by <a href="https://github.com/Raha-P/Weather-app-react">Raha Pedram</a></span>
     </div>
   );}
